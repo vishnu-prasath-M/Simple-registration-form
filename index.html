@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <!-- linking google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Young+Serif&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url("./image/bg.jpg");
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: "Gabarito", serif;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            margin-top: 10%;
+            background-color: rgb(235, 238, 240);
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 9px;
+            background-color:rgb(235, 231, 225);
+            border: none;
+        }
+        button {
+            width: 100px;
+            margin-left: 35%;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+        button:disabled {
+            background-color: grey;
+        }
+        .container{
+            background-color: white;
+            border-radius: 10px;
+            width: 400px;
+            
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    
+        }
+        .container h2{
+            padding-left: 80px;
+        }
+        #registrationForm{
+            width: 80%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<h2>Registration Form</h2>
+<form id="registrationForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <div id="nameError" class="error"></div>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <div id="emailError" class="error"></div>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <div id="passwordError" class="error"></div>
+
+    <button type="submit" id="submitButton" disabled>Submit</button>
+</form>
+</div>
+
+<script>
+    var nameInput = document.getElementById('name');
+    var emailInput = document.getElementById('email');
+    var passwordInput = document.getElementById('password');
+    var submitButton = document.getElementById('submitButton');
+
+    var nameError = document.getElementById('nameError');
+    var emailError = document.getElementById('emailError');
+    var passwordError = document.getElementById('passwordError');
+
+    function validateForm() {
+        let isValid = true;
+
+        // Name validation
+        if (nameInput.value.trim() === '') {
+            nameError.textContent = 'Name is required.';
+            isValid =false;
+        } else {
+            nameError.textContent = '';
+        }
+
+        // Email validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value)) {
+            emailError.textContent = 'Please enter a valid email address.';
+            isValid = false;
+        } else {
+            emailError.textContent = '';
+        }
+
+        // Password validation
+        if (passwordInput.value.length < 6) {
+            passwordError.textContent = 'Password must be at least 6 characters long.';
+            isValid = false;
+        } else {
+            passwordError.textContent = '';
+        }
+
+        // Enable or disable submit button
+        submitButton.disabled = !isValid;
+    }
+
+    nameInput.addEventListener('input', validateForm);
+    emailInput.addEventListener('input', validateForm);
+    passwordInput.addEventListener('input', validateForm);
+</script>
+
+</body>
+</html>
